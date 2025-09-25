@@ -1,13 +1,10 @@
+import HeroSection from "@/components/home/hero/hero-section";
+
 export default function Home() {
   return (
     <main>
-       {/* Section 1 */}
-      <section className="min-h-screen bg-blue-100 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-blue-800 mb-4">Section 1</h1>
-          <p className="text-blue-600">Blue section - min-h-screen</p>
-        </div>
-      </section>
+       {/* home page hero section with carousel */}
+      <HeroSection />
 
       {/* Section 2 */}
       <section className="min-h-screen bg-green-100 flex items-center justify-center">
