@@ -46,10 +46,10 @@ const FeatureCard = ({ icon, title, description, href }: PlatformFeature) => {
                   <Image src={icon} alt={title} width={80} height={60} className="w-8 h-auto" />
               </div>
         <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
-        <p className="mt-4 text-base text-gray-600 flex-grow">{description}</p>
+        <p className="mt-2 text-base text-gray-600 flex-grow">{description}</p>
         <Link
           href={href}
-          className="mt-6 text-sm font-semibold text-[#1E3A8A] group"
+          className="mt-2 text-sm font-semibold text-[#1E3A8A] group"
         >
                   FIND OUT MORE <span>{ `>` }</span>
           <span className="block max-w-0 group-hover:max-w-30 transition-all duration-300 h-0.5 bg-[#1E3A8A]"></span>
