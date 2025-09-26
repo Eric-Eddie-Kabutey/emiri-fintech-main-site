@@ -22,4 +22,11 @@ export const features: PlatformFeature[] = [
 			'Digitally issue, book and transfer any stable coin or digital currencies and optimize your settlement process',
 		href: '/stablecoins',
 	},
+	{
+		icon: "/assets/icons/icon-signature.svg",
+		title: 'Stablecoins 2',
+		description:
+			'Digitally issue, book and transfer any stable coin or digital currencies and optimize your settlement process',
+		href: '/stablecoins',
+	},
 ]
