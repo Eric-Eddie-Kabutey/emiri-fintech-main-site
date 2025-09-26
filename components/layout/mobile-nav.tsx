@@ -1,89 +1,101 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
 import {
   Sheet,
   SheetClose,
   SheetContent,
   SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { NavItem } from "@/types/nav-types";
 import Logo from "../common/logo";
 
-interface MobileNavProps {
-  navItems: NavItem[];
-}
-
-const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
-  // Flatten the navigation items for the mobile menu
-  const allLinks = navItems.reduce((acc, item) => {
-    acc.push({ label: item.label, href: item.href });
-    if (item.sublinks) {
-      item.sublinks.forEach(sub => {
-        // We'll rename "Case studies" to "Case Studies" for consistency if needed, but keeping as per image
-        acc.push({ label: sub.label, href: sub.href });
-      });
-    }
-    return acc;
-  }, [] as { label: string; href: string }[]);
-  
-  // Custom order as seen in the mobile screenshot
-  const mobileLinkOrder = ["Services", "About Us", "Enterprise", "Case studies", "Insights", "Tool"];
-  const sortedLinks = allLinks.sort((a, b) => {
-      const indexA = mobileLinkOrder.indexOf(a.label);
-      const indexB = mobileLinkOrder.indexOf(b.label);
-      return indexA - indexB;
-  });
-
-
+const MobileNav: React.FC<{ navItems: NavItem[] }> = ({ navItems }) => {
   return (
     <div className="md:hidden flex items-center justify-between w-full">
       <Logo />
       <Sheet>
         <SheetTrigger asChild>
-          <Button
-            variant="outline"
-            size="icon"
-            className="bg-[#10754A] hover:bg-[#0c5c3a] text-white rounded-full h-12 w-28 text-base font-semibold"
-          >
-            MENU
+          {/* A more modern menu button */}
+          <Button variant="ghost" size="icon">
+            <Menu className="h-6 w-6 text-slate-800" />
+            <span className="sr-only">Open menu</span>
           </Button>
         </SheetTrigger>
-        <SheetContent className="bg-[#effce3] border-none" side="right">
-          <SheetHeader className="flex flex-row justify-end items-center">
-             <SheetClose asChild>
-                <Button className="bg-black text-white rounded-full hover:bg-gray-800 w-24 h-10">
-                  CLOSE
-                </Button>
-              </SheetClose>
+        <SheetContent className="bg-white" side="right">
+          <SheetHeader>
+            <Logo />
           </SheetHeader>
-          <div className="mt-8">
-            <nav className="flex flex-col space-y-4">
-              {sortedLinks.map((link) => (
-                link.href !== "#" && ( // Exclude non-navigable parent links
-                    <SheetClose asChild key={link.label}>
-                         <Link
-                           href={link.href}
-                           className="text-2xl text-gray-800 hover:text-black py-2"
-                         >
-                           {link.label}
-                         </Link>
+          <div className="mt-8 h-full">
+            <nav className="flex flex-col h-full">
+              {/* The accordion wraps all dynamic navigation items */}
+              <Accordion type="multiple" className="flex-grow">
+                {navItems.map((item) =>
+                  // If the item has a mega menu, render it as an accordion
+                  item.megaMenuContent ? (
+                    <AccordionItem key={item.label} value={item.label}>
+                      <AccordionTrigger className="text-lg font-semibold text-slate-800 py-4">
+                        {item.label}
+                      </AccordionTrigger>
+                      <AccordionContent className="pb-4 space-y-6">
+                        {/* Map over the columns within the mega menu */}
+                        {item.megaMenuContent.map((column) => (
+                          <div key={column.title} className="pl-4 border-l-2 border-slate-200">
+                            <h4 className="text-base font-semibold text-slate-900 mb-2">
+                              {column.title}
+                            </h4>
+                            <div className="space-y-2">
+                              {/* Map over the links within each column */}
+                              {column.links.map((link) => (
+                                <SheetClose asChild key={link.title}>
+                                  <Link
+                                    href={link.href}
+                                    className="block p-2 rounded-md hover:bg-slate-100 transition-colors"
+                                  >
+                                    <p className="font-medium text-slate-800">{link.title}</p>
+                                    <p className="text-sm text-slate-500">{link.description}</p>
+                                  </Link>
+                                </SheetClose>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ) : (
+                    // Otherwise, render a simple link
+                    <SheetClose asChild key={item.label}>
+                      <Link
+                        href={item.href}
+                        className="flex w-full items-center text-lg font-semibold text-slate-800 py-4 border-b"
+                      >
+                        {item.label}
+                      </Link>
                     </SheetClose>
-                )
-              ))}
-              <SheetClose asChild>
-                <Link
-                    href="/contact" // Assuming a contact or booking link
-                    className="text-2xl text-gray-800 hover:text-black py-2 font-medium"
-                >
-                    Book a free Call
-                </Link>
-              </SheetClose>
+                  )
+                )}
+              </Accordion>
+              
+              {/* A static link at the bottom, outside the dynamic list */}
+              <div className="mt-auto pt-4 border-t">
+                  <SheetClose asChild>
+                    <Link
+                        href="/contact" 
+                        className="flex w-full items-center text-lg font-semibold text-slate-800 py-4"
+                    >
+                        Book a free Call
+                    </Link>
+                  </SheetClose>
+              </div>
             </nav>
           </div>
         </SheetContent>
