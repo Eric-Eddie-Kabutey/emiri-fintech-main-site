@@ -18,7 +18,7 @@ const UnifiedPlatform = () => {
         </div>
 
         {/* Features Grid */}
-        <div className="mt-16 grid grid-cols-1 gap-y-12 md:grid-cols-2 md:gap-x-8 lg:grid-cols-3 lg:gap-x-12">
+        <div className="mt-16 grid grid-cols-1 gap-y-12 md:grid-cols-2 md:gap-x-8 lg:grid-cols-3 lg:gap-x-8 2xl:grid-cols-4 2xl:gap-x-6">
           {features.map((feature) => (
             <FeatureCard key={feature.title} {...feature} />
           ))}
@@ -33,10 +33,10 @@ const FeatureCard = ({ icon, title, description, href }: PlatformFeature) => {
   return (
     <div className="relative pl-12">
       {/* Decorative vertical line */}
-      <div className="absolute left-1 top-0 h-full w-px bg-gray-200" />
+      <div className="absolute left-2 top-0 h-full w-px bg-gray-200" />
       
       {/* Pink highlight on the line */}
-      <div className="absolute left-1 top-2 h-10 w-px bg-[#1E3A8A]" />
+      <div className="absolute left-2 top-2 h-10 w-px bg-[#1E3A8A]" />
 
 
       {/* Card Content */}
@@ -46,7 +46,7 @@ const FeatureCard = ({ icon, title, description, href }: PlatformFeature) => {
                   <Image src={icon} alt={title} width={80} height={60} className="w-8 h-auto" />
               </div>
         <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
-        <p className="mt-2 text-base text-gray-600 flex-grow">{description}</p>
+        <p className="mt-2 text-base text-gray-600 flex-grow lg:pr-4">{description}</p>
         <Link
           href={href}
           className="mt-2 text-sm font-semibold text-[#1E3A8A] group"
