@@ -54,11 +54,7 @@ const MegaMenuDropdown: React.FC<{ item: NavItem; isActive: boolean }> = ({ item
               transition={{ duration: 0.2, ease: "easeInOut" }}
               className={cn("absolute top-full left-1/2 -translate-x-1/2 mt-3 origin-top", panelWidthClass)}
             >
-              {/* 
-                --- MODIFIED: The parent now only handles shape and shadow ---
-                We remove `p-8` and `bg-white` from here and add `overflow-hidden`
-                to ensure the inner column backgrounds respect the rounded corners.
-              */}
+             
               <div className="rounded-lg shadow-2xl overflow-hidden">
                 <div className={cn("grid", gridColsClass)}>
                   {columns.map((column, index) => {
@@ -66,7 +62,7 @@ const MegaMenuDropdown: React.FC<{ item: NavItem; isActive: boolean }> = ({ item
                     const bgColor = columnBackgrounds[index] || 'bg-slate-200'; // Fallback for 4+ columns
                     
                     return (
-                      // --- MODIFIED: Each column now has its own padding and background ---
+                      
                       <div
                         key={column.title}
                         className={cn(
