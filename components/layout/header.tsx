@@ -31,7 +31,7 @@ const Header = () => {
       transition={{ duration: 0.35, ease: "easeInOut" }}
       className="fixed top-0 left-0 w-full z-50 p-4"
     >
-      <div className="w-full max-w-5xl mx-auto px-4 outline">
+      <div className="w-full max-w-5xl mx-auto px-4">
         {/* Desktop Navigation */}
         <div className="hidden md:flex w-full">
           <DesktopNav navItems={navigationItems} />
