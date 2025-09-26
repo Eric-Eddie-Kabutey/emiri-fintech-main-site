@@ -1,10 +1,14 @@
 import HeroSection from "@/components/home/hero/hero-section";
+import UnifiedPlatform from "@/components/home/unified-platform";
 
 export default function Home() {
   return (
     <main>
        {/* home page hero section with carousel */}
       <HeroSection />
+
+      {/* Unified Platform Section  */}
+      <UnifiedPlatform  />
 
       {/* Section 2 */}
       <section className="min-h-screen bg-green-100 flex items-center justify-center">
