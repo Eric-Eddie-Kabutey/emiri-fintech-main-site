@@ -18,17 +18,14 @@ export default function Home() {
       {/* Scrolling Cards section */}
       <ScrollingCards />
 
-      {/* Testimonials */}
-      <Testimonials />
+      {/* resources */}
+      <Resources />        
 
       {/* Testimonials Sec */}
       <TestimonialsSec />
 
       {/* Insights */}
-      <Insights />
-
-      {/* resources */}
-      <Resources />     
+      <Insights />       
     </main>
   );
 }
