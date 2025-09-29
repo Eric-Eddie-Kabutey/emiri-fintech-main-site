@@ -16,6 +16,20 @@ export type MegaMenuColumn = {
 export type NavItem = {
     label: string;
     href: string;
-    // The content is now a simple array of columns. The length of this array is key.
-    megaMenuContent?: MegaMenuColumn[];
+    sublinks?: SubNavLink[];
+    dropdownCols?: 1 | 2; // We only need 1 or 2 columns for this design
+};
+
+
+// new nav design
+export type SubNavLink = {
+    label: string;
+    href: string;
+};
+
+export type MainNavLink = {
+    label: string;
+    href: string;
+    sublinks?: SubNavLink[];
+    dropdownCols?: 1 | 2 | 3 | 4; // Add this to control layout
 };
