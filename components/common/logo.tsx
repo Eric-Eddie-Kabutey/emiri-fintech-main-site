@@ -1,6 +1,7 @@
 import Link from "next/link";
 
-const Logo = () => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const Logo = ({isBgActive}: {isBgActive: boolean}) => {
   return (
     <Link href="/" aria-label="Go to homepage">
       <svg width="120" height="30" viewBox="0 0 137 34" fill="none" xmlns="http://www.w3.org/2000/svg">
