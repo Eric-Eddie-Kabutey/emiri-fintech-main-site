@@ -1,5 +1,9 @@
 import HeroSection from "@/components/home/hero/hero-section";
+import Insights from "@/components/home/insights";
+// import Resources from "@/components/home/resources";
 import ScrollingCards from "@/components/home/scrolling-cards";
+import Testimonials from "@/components/home/testimonials";
+import TestimonialsSec from "@/components/home/testimonials-sec";
 import UnifiedPlatform from "@/components/home/unified-platform";
 
 export default function Home() {
@@ -13,6 +17,17 @@ export default function Home() {
       
       {/* Scrolling Cards section */}
       <ScrollingCards />
+
+      {/* Testimonials */}
+      <Testimonials />
+
+      {/* Testimonials Sec */}
+      <TestimonialsSec />
+
+      {/* Insights */}
+      <Insights />
+
+      {/* <Resources /> */}
 
       {/* Section 2 */}
       <section className="min-h-screen bg-green-100 flex items-center justify-center">
