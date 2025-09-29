@@ -1,4 +1,5 @@
 import HeroSection from "@/components/home/hero/hero-section";
+import ScrollingCards from "@/components/home/scrolling-cards";
 import UnifiedPlatform from "@/components/home/unified-platform";
 
 export default function Home() {
@@ -8,7 +9,10 @@ export default function Home() {
       <HeroSection />
 
       {/* Unified Platform Section  */}
-      <UnifiedPlatform  />
+      <UnifiedPlatform />
+      
+      {/* Scrolling Cards section */}
+      <ScrollingCards />
 
       {/* Section 2 */}
       <section className="min-h-screen bg-green-100 flex items-center justify-center">
