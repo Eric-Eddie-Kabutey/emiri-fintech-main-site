@@ -1,106 +1,92 @@
 "use client";
 
-import Link from "next/link";
-import { Menu } from "lucide-react";
+import React from 'react';
+import Link from 'next/link';
 import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetHeader,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { NavItem } from "@/types/nav-types";
-import Logo from "../common/logo";
+import { navigationItems } from '@/data/nav-data';
+import { Menu, X, Search } from 'lucide-react';
+import { Button } from '../ui/button';
 
-const MobileNav: React.FC<{ navItems: NavItem[] }> = ({ navItems }) => {
+
+const MobileNav = () => {
   return (
-    <div className="md:hidden flex items-center justify-between w-full">
-      <Logo />
-      <Sheet>
-        <SheetTrigger asChild>
-          {/* A more modern menu button */}
-          <Button variant="ghost" size="icon">
-            <Menu className="h-6 w-6 text-slate-800" />
-            <span className="sr-only">Open menu</span>
-          </Button>
-        </SheetTrigger>
-        <SheetContent className="bg-white" side="right">
-          <SheetHeader>
-            <Logo />
-          </SheetHeader>
-          <div className="mt-8 h-full">
-            <nav className="flex flex-col h-full">
-              {/* The accordion wraps all dynamic navigation items */}
-              <Accordion type="multiple" className="flex-grow">
-                {navItems.map((item) =>
-                  // If the item has a mega menu, render it as an accordion
-                  item.megaMenuContent ? (
-                    <AccordionItem key={item.label} value={item.label}>
-                      <AccordionTrigger className="text-lg font-semibold text-slate-800 py-4">
-                        {item.label}
-                      </AccordionTrigger>
-                      <AccordionContent className="pb-4 space-y-6">
-                        {/* Map over the columns within the mega menu */}
-                        {item.megaMenuContent.map((column) => (
-                          <div key={column.title} className="pl-4 border-l-2 border-slate-200">
-                            <h4 className="text-base font-semibold text-slate-900 mb-2">
-                              {column.title}
-                            </h4>
-                            <div className="space-y-2">
-                              {/* Map over the links within each column */}
-                              {column.links.map((link) => (
-                                <SheetClose asChild key={link.title}>
-                                  <Link
-                                    href={link.href}
-                                    className="block p-2 rounded-md hover:bg-slate-100 transition-colors"
-                                  >
-                                    <p className="font-medium text-slate-800">{link.title}</p>
-                                    <p className="text-sm text-slate-500">{link.description}</p>
-                                  </Link>
-                                </SheetClose>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ) : (
-                    // Otherwise, render a simple link
-                    <SheetClose asChild key={item.label}>
-                      <Link
-                        href={item.href}
-                        className="flex w-full items-center text-lg font-semibold text-slate-800 py-4 border-b"
-                      >
-                        {item.label}
-                      </Link>
-                    </SheetClose>
-                  )
-                )}
-              </Accordion>
-              
-              {/* A static link at the bottom, outside the dynamic list */}
-              <div className="mt-auto pt-4 border-t">
-                  <SheetClose asChild>
-                    <Link
-                        href="/contact" 
-                        className="flex w-full items-center text-lg font-semibold text-slate-800 py-4"
-                    >
-                        Book a free Call
-                    </Link>
-                  </SheetClose>
-              </div>
+    <Sheet>
+      <SheetTrigger asChild>
+        <button className="p-2">
+            <Menu className="h-8 w-8 text-blue-900" />
+            <span className="sr-only">Open Menu</span>
+        </button>
+      </SheetTrigger>
+      <SheetContent side="left" className="w-full bg-[#002266] text-white p-0 border-none flex flex-col">
+        {/* Mobile Header */}
+        <div className="flex items-center justify-between p-4 border-b border-white/20">
+            <div className="flex items-center gap-4">
+                <SheetClose>
+                    <X className="h-6 w-6"/>
+                </SheetClose>
+                <Search className="h-6 w-6"/>
+                <span>English</span>
+            </div>
+            {/* <CBUAELogo className="h-10 text-white" /> */}
+        </div>
+        
+        {/* Scrollable Nav Content */}
+        <div className="flex-grow overflow-y-auto">
+            <nav className="p-4">
+                <Accordion type="multiple" className="w-full">
+                    <h3 className="px-4 py-2 text-gray-400 font-semibold">Overview</h3>
+                    {navigationItems.map((item) => 
+                        item.sublinks ? (
+                            <AccordionItem key={item.label} value={item.label} className="border-b border-white/20">
+                                <AccordionTrigger className="py-4 text-left text-lg hover:no-underline">
+                                    {item.label}
+                                </AccordionTrigger>
+                                <AccordionContent className="pb-4 pl-4">
+                                    <div className="flex flex-col gap-4">
+                                        {item.sublinks.map(sublink => (
+                                            <SheetClose asChild key={sublink.label}>
+                                                <Link href={sublink.href} className="hover:text-gray-300">
+                                                    {sublink.label}
+                                                </Link>
+                                            </SheetClose>
+                                        ))}
+                                    </div>
+                                </AccordionContent>
+                            </AccordionItem>
+                        ) : (
+                            <SheetClose asChild key={item.label}>
+                                <Link href={item.href} className="block py-4 border-b border-white/20 text-lg font-semibold">
+                                    {item.label}
+                                </Link>
+                            </SheetClose>
+                        )
+                    )}
+                </Accordion>
             </nav>
-          </div>
-        </SheetContent>
-      </Sheet>
-    </div>
+        </div>
+
+
+         {/* --- Sticky Bottom Section --- */}
+        <div className="p-4 mt-auto border-t border-white/20">
+          <SheetClose asChild>
+            <Button asChild className="w-full bg-yellow-400 text-blue-900 font-bold hover:bg-yellow-500 rounded-md">
+              <Link href="/book-meeting">Book a Meeting</Link>
+            </Button>
+          </SheetClose>
+        </div>
+      </SheetContent>
+    </Sheet>
   );
 };
 

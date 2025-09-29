@@ -1,45 +1,52 @@
 "use client";
 
 import Link from "next/link";
-import { NavItem } from "@/types/nav-types"; // Ensure path is correct
-import Logo from "@/components/common/logo"; // Ensure path is correct
-import MegaMenuDropdown from "./mega-menu-dropdown"; // We use the new mega menu
+import { navigationItems } from "@/data/nav-data"; // Update import path if needed
 import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
+import { Search } from "lucide-react";
+import DropdownNavItem from "./dropdown-nav-item"; 
 
-// In a real app, you'd get this from usePathname()
-const activePath = "/solutions"; 
+// For demo purposes. In a real app, use `usePathname()` from `next/navigation`.
+const activePath = "";
 
-const DesktopNav: React.FC<{ navItems: NavItem[] }> = ({ navItems }) => {
+const DesktopNav = () => {
   return (
-    <div className="flex items-center justify-between bg-white rounded-full shadow-lg px-2 py-3 w-full">
-      <Logo />
+    <div className="flex items-center gap-6">
       <nav>
-        <ul className="flex items-center space-x-2">
-          {navItems.map((item) => {
-            const isActive = activePath.startsWith(item.href) && item.href !== "/";
-            
-            // This is the updated logic: check for megaMenuContent
-            return item.megaMenuContent ? (
-              <MegaMenuDropdown key={item.label} item={item} isActive={isActive} />
+        <ul className="flex items-center">
+          {navigationItems.map((item) => {
+            const isActive = activePath.startsWith(item.href);
+
+            return item.sublinks ? (
+              // Use our custom component for items with sublinks
+              <DropdownNavItem key={item.label} item={item} isActive={isActive} />
             ) : (
-              // This is the standard link for items without a dropdown
-              <li key={item.label}>
+              // Use a simple Link for items without sublinks
+              <li key={item.label} className="relative">
                 <Link
                   href={item.href}
                   className={cn(
-                    "rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                    isActive
-                      ? "text-fuchsia-600"
-                      : "text-slate-700 hover:text-slate-900"
+                    "px-4 py-2 text-base font-medium transition-colors",
+                    // isActive ? "text-yellow-400" : "text-blue-900 hover:text-yellow-400"
                   )}
                 >
                   {item.label}
                 </Link>
+                {/* {isActive && (
+                  <div className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400" />
+                )} */}
               </li>
             );
           })}
         </ul>
       </nav>
+
+      <span className="text-blue-900 font-bold cursor-pointer hover:text-yellow-400">عربي</span>
+      <Search className="h-6 w-6 text-blue-900 cursor-pointer"/>
+       <Button className="bg-yellow-400 text-blue-900 font-bold hover:bg-yellow-500 rounded-md">
+        Book a Meeting
+      </Button>
     </div>
   );
 };
